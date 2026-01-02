@@ -12,8 +12,9 @@ const navItems = [
     label: "Data Migration",
     href: "/data-migration",
     dropdown: [
-      { label: "CRM Migration", href: "/data-migration#crm" },
-      { label: "Platform Transfer", href: "/data-migration#platform" },
+      { label: "For Customers", href: "/data-migration" },
+      { label: "For CRM Companies", href: "/crm-data-migration" },
+      { label: "Get Instant Quote", href: "/instant-quote" },
     ],
   },
   { label: "Process", href: "/process" },
