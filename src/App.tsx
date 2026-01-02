@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Automation from "./pages/Automation";
 import DataMigration from "./pages/DataMigration";
+import CRMDataMigration from "./pages/CRMDataMigration";
+import InstantQuote from "./pages/InstantQuote";
 import Airtable from "./pages/Airtable";
 import Process from "./pages/Process";
 import About from "./pages/About";
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/automation" element={<Automation />} />
           <Route path="/data-migration" element={<DataMigration />} />
+          <Route path="/crm-data-migration" element={<CRMDataMigration />} />
+          <Route path="/instant-quote" element={<InstantQuote />} />
           <Route path="/airtable" element={<Airtable />} />
           <Route path="/process" element={<Process />} />
           <Route path="/about" element={<About />} />
