@@ -17,6 +17,8 @@ const navItems = [
       { label: "Get Instant Quote", href: "/instant-quote" },
     ],
   },
+  { label: "Case Studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Process", href: "/process" },
   { label: "About", href: "/about" },
 ];
