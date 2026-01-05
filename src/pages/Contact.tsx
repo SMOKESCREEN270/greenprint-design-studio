@@ -18,7 +18,7 @@ const contactMethods = [
     title: "Send an Email",
     description: "Prefer email? Drop us a line and we'll respond within 24 hours.",
     cta: "Email Us",
-    href: "mailto:hello@automatepro.com",
+    href: "mailto:hello@labcraftsolutions.com",
     primary: false,
   },
 ];
@@ -192,8 +192,8 @@ export default function Contact() {
             <p className="text-muted-foreground mb-8">
               Check out our <a href="/process" className="text-primary hover:underline">Process page</a> for 
               common questions, or email us directly at{" "}
-              <a href="mailto:hello@automatepro.com" className="text-primary hover:underline">
-                hello@automatepro.com
+              <a href="mailto:hello@labcraftsolutions.com" className="text-primary hover:underline">
+                hello@labcraftsolutions.com
               </a>
             </p>
           </div>

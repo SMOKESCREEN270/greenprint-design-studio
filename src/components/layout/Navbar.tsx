@@ -54,17 +54,19 @@ export function Navbar() {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="group flex items-center gap-2">
+          <Link to="/" className="group flex items-center gap-3">
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="relative"
             >
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-[0_0_20px_hsl(120_97%_36%/0.3)] group-hover:shadow-[0_0_30px_hsl(120_97%_36%/0.5)] transition-shadow duration-300">
-                <span className="text-primary-foreground font-display font-bold text-lg">A</span>
-              </div>
+              <img 
+                src="/images/logo.png" 
+                alt="Lab Craft Solutions" 
+                className="h-10 w-auto"
+              />
             </motion.div>
             <span className="font-display font-semibold text-xl text-foreground">
-              Automate<span className="text-primary">Pro</span>
+              Lab Craft <span className="text-primary">Solutions</span>
             </span>
           </Link>
 

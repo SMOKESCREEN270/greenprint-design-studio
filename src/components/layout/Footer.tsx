@@ -33,12 +33,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-lg">A</span>
-              </div>
+            <Link to="/" className="inline-flex items-center gap-3 mb-6">
+              <img 
+                src="/images/logo.png" 
+                alt="Lab Craft Solutions" 
+                className="h-10 w-auto"
+              />
               <span className="font-display font-semibold text-xl text-foreground">
-                Automate<span className="text-primary">Pro</span>
+                Lab Craft <span className="text-primary">Solutions</span>
               </span>
             </Link>
             <p className="text-muted-foreground max-w-sm mb-6">
@@ -47,11 +49,11 @@ export function Footer() {
             </p>
             <div className="space-y-3">
               <a
-                href="mailto:hello@automatepro.com"
+                href="mailto:hello@labcraftsolutions.com"
                 className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                <span>hello@automatepro.com</span>
+                <span>hello@labcraftsolutions.com</span>
               </a>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="w-4 h-4" />
@@ -123,7 +125,7 @@ export function Footer() {
           className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} AutomatePro. All rights reserved.
+            © {new Date().getFullYear()} Lab Craft Solutions. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <Link to="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
