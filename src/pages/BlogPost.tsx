@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, ArrowRight, BookOpen } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Calendar, Clock, ArrowLeft, User } from "lucide-react";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SectionHeading } from "@/components/SectionHeading";
 
 const blogPosts = [
   {
@@ -34,9 +33,9 @@ The beauty of Airtable is that you can start small and scale as needed. Begin wi
 
 If you're ready to transform how your business manages data, we're here to help you design and implement an Airtable solution tailored to your specific needs.`,
     category: "Airtable",
+    author: "Josh",
     date: "Jan 2, 2026",
     readTime: "6 min read",
-    featured: true,
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop"
   },
   {
@@ -79,9 +78,9 @@ Weekly reports, monthly summaries, quarterly reviews – the data exists, but co
 
 The key to successful automation is starting with processes that are high-frequency, rule-based, and time-consuming. Not sure where to begin? We offer free consultations to identify your highest-impact automation opportunities.`,
     category: "Automation",
+    author: "Josh",
     date: "Dec 28, 2025",
     readTime: "8 min read",
-    featured: true,
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=400&fit=crop"
   },
   {
@@ -147,23 +146,25 @@ Migration doesn't end when the data lands in your new system. Plan for:
 
 CRM migrations are complex, but with proper planning and execution, they don't have to be stressful. If you're planning a migration and want expert guidance, reach out – we've helped dozens of companies make the switch smoothly.`,
     category: "Data Migration",
+    author: "Josh",
     date: "Dec 20, 2025",
     readTime: "10 min read",
-    featured: false,
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop"
   },
 ];
 
-const categories = ["All", "Automation", "Airtable", "Data Migration"];
+export default function BlogPost() {
+  const { id } = useParams();
+  const post = blogPosts.find(p => p.id === Number(id));
 
-export default function Blog() {
-  const featuredPosts = blogPosts.filter(post => post.featured);
-  const regularPosts = blogPosts.filter(post => !post.featured);
+  if (!post) {
+    return <Navigate to="/blog" replace />;
+  }
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 overflow-hidden">
+      <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px]">
             <div className="w-full h-full bg-primary/5 rounded-full blur-[150px]" />
@@ -171,193 +172,133 @@ export default function Blog() {
         </div>
 
         <div className="container mx-auto px-6 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.span
+          <div className="max-w-4xl mx-auto">
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6"
             >
-              <BookOpen className="w-4 h-4" />
-              Insights & Resources
-            </motion.span>
+              <Link 
+                to="/blog" 
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-8"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to Blog
+              </Link>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+                {post.category}
+              </span>
+
+              <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                {post.title}
+              </h1>
+
+              <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-8">
+                <span className="flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  {post.author}
+                </span>
+                <span className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  {post.date}
+                </span>
+                <span className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  {post.readTime}
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Featured Image */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6"
+              className="rounded-2xl overflow-hidden mb-12"
             >
-              The <span className="text-gradient">Automation</span> Blog
-            </motion.h1>
+              <img 
+                src={post.image} 
+                alt={post.title}
+                className="w-full h-[300px] md:h-[400px] object-cover"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-muted-foreground max-w-2xl mx-auto"
+      {/* Content */}
+      <section className="pb-24">
+        <div className="container mx-auto px-6">
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="max-w-3xl mx-auto prose prose-invert prose-lg prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-a:text-primary hover:prose-a:text-primary/80"
+          >
+            {post.content.split('\n\n').map((paragraph, index) => {
+              if (paragraph.startsWith('## ')) {
+                return (
+                  <h2 key={index} className="text-2xl font-bold mt-10 mb-4 text-foreground">
+                    {paragraph.replace('## ', '')}
+                  </h2>
+                );
+              }
+              if (paragraph.startsWith('- ')) {
+                const items = paragraph.split('\n').filter(line => line.startsWith('- '));
+                return (
+                  <ul key={index} className="list-disc pl-6 space-y-2 my-6">
+                    {items.map((item, i) => (
+                      <li key={i} dangerouslySetInnerHTML={{ 
+                        __html: item.replace('- ', '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') 
+                      }} />
+                    ))}
+                  </ul>
+                );
+              }
+              if (paragraph.match(/^\d+\. /)) {
+                const items = paragraph.split('\n').filter(line => line.match(/^\d+\. /));
+                return (
+                  <ol key={index} className="list-decimal pl-6 space-y-2 my-6">
+                    {items.map((item, i) => (
+                      <li key={i} dangerouslySetInnerHTML={{ 
+                        __html: item.replace(/^\d+\. /, '').replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') 
+                      }} />
+                    ))}
+                  </ol>
+                );
+              }
+              return (
+                <p 
+                  key={index} 
+                  className="my-4"
+                  dangerouslySetInnerHTML={{ 
+                    __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong class="text-foreground">$1</strong>') 
+                  }}
+                />
+              );
+            })}
+          </motion.article>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto mt-16 p-8 rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent border border-primary/20 text-center"
+          >
+            <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+            <p className="text-muted-foreground mb-6">
+              Let's discuss how we can help transform your business operations.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
             >
-              Expert insights on automation, Airtable, and data migration to help 
-              you transform your business operations.
-            </motion.p>
-          </div>
+              Schedule a Consultation
+            </Link>
+          </motion.div>
         </div>
       </section>
-
-      {/* Categories */}
-      <section className="py-8 border-b border-border/50">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
-              <motion.button
-                key={category}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  category === "All"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted/50 text-muted-foreground hover:bg-primary/10 hover:text-primary"
-                }`}
-              >
-                {category}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Posts */}
-      <section className="py-24">
-        <div className="container mx-auto px-6">
-          <SectionHeading
-            label="Featured"
-            title="Latest Articles"
-            description="Our most recent insights and guides on automation and efficiency."
-          />
-
-          <div className="grid md:grid-cols-2 gap-8 mt-16">
-            {featuredPosts.map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative"
-              >
-                <Link to={`/blog/${post.id}`}>
-                  <div className="h-full rounded-2xl border border-border/50 bg-card/30 hover:border-primary/30 hover:shadow-[0_0_40px_hsl(120_97%_36%/0.1)] transition-all duration-500 overflow-hidden">
-                    {post.image && (
-                      <div className="h-48 overflow-hidden">
-                        <img 
-                          src={post.image} 
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
-                    <div className="p-8">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                          {post.category}
-                        </span>
-                        <span className="text-muted-foreground text-sm flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {post.date}
-                        </span>
-                      </div>
-
-                      <h3 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {post.title}
-                      </h3>
-
-                      <p className="text-muted-foreground mb-6 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {post.readTime}
-                        </span>
-                        <span className="text-primary font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
-                          Read More
-                          <ArrowRight className="w-4 h-4" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* More Articles */}
-      {regularPosts.length > 0 && (
-        <section className="py-24 bg-card/30">
-          <div className="container mx-auto px-6">
-            <SectionHeading
-              label="More"
-              title="More Articles"
-              description="Browse our complete collection of articles and resources."
-            />
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-              {regularPosts.map((post, index) => (
-                <motion.article
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group"
-                >
-                  <Link to={`/blog/${post.id}`}>
-                    <div className="h-full rounded-xl border border-border/50 bg-background/50 hover:border-primary/30 transition-all duration-300 overflow-hidden">
-                      {post.image && (
-                        <div className="h-40 overflow-hidden">
-                          <img 
-                            src={post.image} 
-                            alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      )}
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                            {post.category}
-                          </span>
-                        </div>
-
-                        <h3 className="font-display text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </h3>
-
-                        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                          {post.excerpt}
-                        </p>
-
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-3 h-3" />
-                            {post.date}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {post.readTime}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </Layout>
   );
 }
