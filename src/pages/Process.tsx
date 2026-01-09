@@ -4,6 +4,12 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { ProcessStep } from "@/components/ProcessStep";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const processSteps = [
   {
@@ -163,25 +169,29 @@ export default function Process() {
             title="Common Questions"
           />
 
-          <div className="max-w-3xl mx-auto mt-16 space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-2xl border border-border/50 bg-card/30"
-              >
-                <h3 className="font-display text-lg font-semibold text-foreground mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-muted-foreground">
-                  {faq.answer}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto mt-16"
+          >
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={faq.question}
+                  value={`item-${index}`}
+                  className="rounded-2xl border border-border/50 bg-card/30 px-6 data-[state=open]:border-primary/30"
+                >
+                  <AccordionTrigger className="text-left font-display text-lg font-semibold text-foreground hover:no-underline py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-6">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
         </div>
       </section>
 
